@@ -1,4 +1,4 @@
-$hc-offcanvas-nav-transition-duration: .4s !default;
+$hc-offcanvas-nav-transition-duration: 0.4s !default;
 $hc-offcanvas-nav-transition-timing-function: ease !default;
 $hc-offcanvas-nav-container-width: 240px !default;
 $hc-offcanvas-nav-container-height: auto !default;
@@ -51,15 +51,10 @@ body.hc-nav-open {
   .nav-content {
     height: 100%;
     max-height: 100vh;
-  }
-
-  .nav-wrapper-0 {
-    & > .nav-content {
-      overflow: scroll;
-      overflow-x: visible;
-      overflow-y: auto;
-      box-sizing: border-box;
-    }
+    overflow: scroll;
+    overflow-x: visible;
+    overflow-y: auto;
+    box-sizing: border-box;
   }
 
   ul {
@@ -112,11 +107,10 @@ body.hc-nav-open {
   }
 
   // Background overlay
-
   &.disable-body,
-  .nav-wrapper {
+  .nav-wrapper-0 {
     &::after {
-      content: '';
+      content: "";
       position: fixed;
       z-index: 9990;
       top: 0;
@@ -128,7 +122,8 @@ body.hc-nav-open {
       overscroll-behavior: none;
       visibility: hidden;
       opacity: 0;
-      transition: visibility 0s ease $hc-offcanvas-nav-transition-duration, opacity $hc-offcanvas-nav-transition-duration ease;
+      transition: visibility 0s ease $hc-offcanvas-nav-transition-duration,
+        opacity $hc-offcanvas-nav-transition-duration ease;
     }
   }
 
@@ -137,7 +132,7 @@ body.hc-nav-open {
     &::after {
       visibility: visible;
       opacity: 1;
-      transition-delay: .05s;
+      transition-delay: 0.05s;
     }
   }
 
@@ -147,73 +142,46 @@ body.hc-nav-open {
     }
   }
 
-  // Expand Levels
-  &.nav-levels-expand {
+  // Expand then Overlap Levels
+  ul {
+    .nav-wrapper-0,
+    .nav-wrapper-1 {
+      min-width: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: height 0s ease $hc-offcanvas-nav-transition-duration;
 
-    .nav-content {
-      overflow: scroll;
-      overflow-x: visible;
-      overflow-y: auto;
-      box-sizing: border-box;
-    }
+      ul {
+        .nav-wrapper {
+          position: fixed;
+          z-index: 9999;
+          top: 54px;
+          height: 100%;
+          visibility: hidden;
+          transition: visibility 0s ease $hc-offcanvas-nav-transition-duration,
+            transform $hc-offcanvas-nav-transition-duration $hc-offcanvas-nav-transition-timing-function;
+        }
 
-    .nav-wrapper {
-      &::after {
-        display: none;
-      }
-    }
+        li {
+          &.nav-parent {
+            position: static;
+          }
 
-    ul {
-      .nav-wrapper {
-        min-width: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: height 0s ease $hc-offcanvas-nav-transition-duration;
-      }
-    }
-
-    .level-open {
-      & > .nav-wrapper {
-        max-height: none;
+          &.level-open {
+            & > .nav-wrapper {
+              visibility: visible;
+              transform: translate3d(0, 0, 0);
+              transition: transform $hc-offcanvas-nav-transition-duration $hc-offcanvas-nav-transition-timing-function;
+            }
+          }
+        }
       }
     }
   }
 
-  // Transform Levels
-  &.nav-levels-overlap {
-
-    .nav-content {
-      overflow: scroll;
-      overflow-x: visible;
-      overflow-y: auto;
-      box-sizing: border-box;
-    }
-
-    ul {
-
-      .nav-wrapper {
-        position: absolute;
-        z-index: 9999;
-        top: 0;
-        height: 100%;
-        visibility: hidden;
-        transition: visibility 0s ease $hc-offcanvas-nav-transition-duration, transform $hc-offcanvas-nav-transition-duration $hc-offcanvas-nav-transition-timing-function;
-      }
-
-      li {
-
-        &.nav-parent {
-          position: static;
-        }
-
-        &.level-open {
-          & > .nav-wrapper {
-            visibility: visible;
-            transform: translate3d(0, 0, 0);
-            transition: transform $hc-offcanvas-nav-transition-duration $hc-offcanvas-nav-transition-timing-function;
-          }
-        }
-      }
+  .level-open {
+    & > .nav-wrapper {
+      max-height: none;
     }
   }
 
@@ -227,11 +195,25 @@ body.hc-nav-open {
     }
 
     &.nav-levels-overlap {
-
       li {
         .nav-wrapper {
           left: 0;
           transform: translate3d(-100%, 0, 0);
+        }
+      }
+    }
+
+    &.nav-levels-expandOverlap {
+      .nav-container {
+        li {
+          ul {
+            li {
+              .nav-wrapper {
+                left: 0;
+                transform: translate3d(-100%, 0, 0);
+              }
+            }
+          }
         }
       }
     }
@@ -247,11 +229,25 @@ body.hc-nav-open {
     }
 
     &.nav-levels-overlap {
-
       li {
         .nav-wrapper {
           right: 0;
           transform: translate3d(100%, 0, 0);
+        }
+      }
+    }
+
+    &.nav-levels-expandOverlap {
+      .nav-container {
+        li {
+          ul {
+            li {
+              .nav-wrapper {
+                right: 0;
+                transform: translate3d(100%, 0, 0);
+              }
+            }
+          }
         }
       }
     }
@@ -274,11 +270,25 @@ body.hc-nav-open {
     }
 
     &.nav-levels-overlap {
-
       li {
         .nav-wrapper {
           left: 0;
           transform: translate3d(0, -100%, 0);
+        }
+      }
+    }
+
+    &.nav-levels-expandOverlap {
+      .nav-container {
+        li {
+          ul {
+            li {
+              .nav-wrapper {
+                left: 0;
+                transform: translate3d(0, -100%, 0);
+              }
+            }
+          }
         }
       }
     }
@@ -298,7 +308,6 @@ body.hc-nav-open {
     }
 
     &.nav-levels-overlap {
-
       li {
         .nav-wrapper {
           left: 0;
@@ -306,10 +315,25 @@ body.hc-nav-open {
         }
       }
     }
+
+    &.nav-levels-expandOverlap {
+      .nav-container {
+        li {
+          ul {
+            li {
+              .nav-wrapper {
+                left: 0;
+                transform: translate3d(0, 100%, 0);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   // Open Nav
-  &.nav-open[class*='hc-nav-'] {
+  &.nav-open[class*="hc-nav-"] {
     div.nav-container {
       transform: translate3d(0, 0, 0);
     }

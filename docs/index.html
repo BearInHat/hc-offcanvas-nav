@@ -14,10 +14,12 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200,300,400,600,700">
-    <link rel="stylesheet" href="demo.css?ver=3.4.0">
+    <link rel="stylesheet" href="../src/scss/demo.css">
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="hc-offcanvas-nav.js?ver=3.4.1"></script>
+    
   </head>
 
   <body>
@@ -31,15 +33,8 @@
           <nav id="main-nav">
 
             <ul class="first-nav">
-              <li class="search">
-                <div class="form-container">
-                  <form class="search-form" action="https://www.google.com/search" target="_blank" method="get">
-                    <input type="text" name="q" placeholder="Search..." autocomplete="off">
-                  </form>
-                </div>
-              </li>
               <li class="cryptocurrency">
-                <a href="https://www.google.com/search?q=Crypto" target="_blank">Cryptocurrency</a>
+                <a href="https://www.google.com/search?q=Crypto" target="_blank">Monkey</a>
                 <ul>
                   <li><a href="#">Bitcoin</a></li>
                   <li><a href="#">Ethereum</a></li>
@@ -208,9 +203,11 @@
 
             <div class="actions levels">
 
-              <div><a href="#" data-demo="{levelOpen:'overlap', levelSpacing:40}" class="button active">Overlap levels</a></div>
+              <div><a href="#" data-demo="{levelOpen:'overlap', levelSpacing:40}" class="button">Overlap levels</a></div>
 
               <div><a href="#" data-demo="{levelOpen:'expand', levelSpacing:25}" class="button">Expand levels</a></div>
+
+              <div><a href="#" data-demo="{levelOpen:'expandOverlap', levelSpacing:40}" class="button active">Expand then Overlap levels</a></div>
 
               <div><a href="#" data-demo="{levelOpen:false, levelSpacing:25}" class="button">Unfolded levels</a></div>
 
@@ -224,9 +221,9 @@
 
               <div><label><input type="checkbox" data-demo="{disableBody:true}" checked><span></span>Disable body</label></div>
 
-              <div><label><input type="checkbox" data-demo="{pushContent:'#container'}" checked><span></span>Push content</label></div>
+              <div><label><input type="checkbox" data-demo="{pushContent:'#container'}"><span></span>Push content</label></div>
 
-              <div><label><input type="checkbox" data-demo="{navTitle: 'All Categories', levelTitles:true}" checked><span></span>Main nav and level titles</label></div>
+              <div><label><input type="checkbox" data-demo="{navTitle: 'All Categories', levelTitles:true}"><span></span>Main nav and level titles</label></div>
 
               <div><label><input type="checkbox" data-demo="{insertClose:true, insertBack:true}" checked><span></span>Close and back buttons</label></div>
 
@@ -254,7 +251,10 @@
 
       </footer>
 
-      <script>
+      <script src="../src/js/hc-offcanvas-nav.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script>
         (function($) {
           var $main_nav = $('#main-nav');
           var $toggle = $('.toggle');
@@ -262,10 +262,11 @@
           var defaultData = {
             maxWidth: false,
             customToggle: $toggle,
-            navTitle: 'All Categories',
+            navTitle: '',
             levelTitles: true,
-            pushContent: '#container',
-            insertClose: 2,
+            pushContent: '',
+            //insertClose: 2,
+            labelClose: 'Life Extension',
             closeLevels: false
           };
 

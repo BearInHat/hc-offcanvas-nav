@@ -3,7 +3,7 @@ $background: #243949;
 $white: #fffce1;
 $yellow: #dab977;
 
-@import './hc-offcanvas-nav';
+@import './hc-offcanvas-nav.scss';
 @import './mixins';
 
 @mixin mi {
